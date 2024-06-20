@@ -14,7 +14,7 @@ The configuration is as follows：
   "git": {
     "commitMessage": "chore: release ${version}" // This is to match commitlint
   },
-  "npm": false,
+  "npm": false, // Here is important
   "plugins": {
     "@release-it-plugins/workspaces": true,
     "@release-it/conventional-changelog": {
