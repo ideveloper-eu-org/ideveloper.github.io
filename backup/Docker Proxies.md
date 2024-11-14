@@ -13,6 +13,7 @@ This is general set:
 ```
 sudo mkdir -p /etc/systemd/system/docker.service.d
 sudo touch /etc/systemd/system/docker.service.d/proxy.conf
+```
 
 proxy.conf
 ```
