@@ -51,9 +51,25 @@ sudo systemctl restart docker
 sudo snap restart docker
 ```
 
+Run the following command to check
+```
+sudo systemctl show --property=Environment snap.docker.dockerd.service
+```
+
 ## For docker build
 
-TODO:
+Since the agents of build and docker pull are isolated from each other, we need to specify the agent when we build the image, which can only be specified in the command at present
+
+```
+
+docker build --network host --build-arg "HTTP_PROXY=http://127.0.0.1:10086/" \
+    --build-arg "HTTPS_PROXY=http://127.0.0.1:10086/" \
+    --build-arg "NO_PROXY=localhost,127.0.0.1" -t agent -f ./docker/Dockerfile .
+
+```
+
+The host network is used here to ensure that 127.0.0.1 points to the local machine
+
 
 ## For docker run / container
 
