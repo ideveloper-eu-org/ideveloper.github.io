@@ -1,5 +1,6 @@
 ## The vfly-core config is different with v2rayU config(xray-core)
 
+- Ensure that the system time is consistent with that of the server
 - routing don't include the settings field
 - inbounds listen use 0.0.0.0 replace with 127.0.0.1
 
@@ -89,4 +90,14 @@
     }
 }
 
+```
+
+## Ubuntu System Date
+
+```
+// modify the systemdate
+sudo date -s '2024-11-19 15:42'
+
+// save it to boot, ensure that is correct after reboot
+sudo hwclock -w
 ```
