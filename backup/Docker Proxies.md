@@ -56,6 +56,8 @@ Run the following command to check
 sudo systemctl show --property=Environment snap.docker.dockerd.service
 ```
 
+BWT: You can also configure dockerd's proxy by configuring daemon.json
+
 ## For docker build
 
 Since the agents of build and docker pull are isolated from each other, we need to specify the agent when we build the image, which can only be specified in the command at present
@@ -72,5 +74,20 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
 
 
 ## For docker run / container
+
+~/.docker/config.json
+···
+
+{
+ "proxies": {
+   "default": {
+     "httpProxy": "http://127.0.0.1:10086",
+     "httpsProxy": "http://127.0.0.1:10086",
+     "noProxy": "localhost,127.0.0.1"
+   }
+ }
+}
+
+···
 
 TODO:
