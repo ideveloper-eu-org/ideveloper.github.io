@@ -79,15 +79,13 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
 ···
 
 {
- "proxies": {
-   "default": {
-     "httpProxy": "http://127.0.0.1:10086",
-     "httpsProxy": "http://127.0.0.1:10086",
-     "noProxy": "localhost,127.0.0.1"
+   "proxies": {
+       "default": {
+           "httpProxy": "http://127.0.0.1:10086",
+           "httpsProxy": "http://127.0.0.1:10086",
+           "noProxy": "localhost,127.0.0.1"
+       }
    }
- }
 }
 
 ···
-
-TODO:
