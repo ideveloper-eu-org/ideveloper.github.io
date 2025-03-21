@@ -6,7 +6,7 @@ There are three levels that need to be set, which we explain one by one blow
 
 ## For docker pull
 
-The network environment here is set up by dockerd, so we need to set dockerd proxy paramters
+The network environment here is set up by dockerd, so we need to set dockerd proxy paramters, or set daemon.json
 
 This is general set:
 
@@ -23,6 +23,24 @@ Environment="HTTPS_PROXY=http://proxy.example.com:8080/"
 Environment="NO_PROXY=localhost,127.0.0.1,.example.com"
 ```
 
+or
+
+/etc/docker/daemon.json
+```
+{
+    "dns": [
+        "223.5.5.5",
+        "8.8.8.8"
+    ],
+    "proxies": {
+        "http-proxy": "http://127.0.0.1:10086",
+        "https-proxy": "http://127.0.0.1:10086",
+        "no-proxy": "127.0.0.0/8,192.168.1.1/24"
+    }
+}
+```
+
+
 This is snap version:
 
 /etc/systemd/system/snap.docker.dockerd.service
@@ -34,6 +52,7 @@ Environment="HTTPS_PROXY=http://127.0.0.1:10086"
 Environment="NO_PROXY=localhost,127.0.0.1"
 ...
 ```
+or 
 
 /etc/environment
 ```
@@ -41,6 +60,20 @@ HTTP_PROXY=http://127.0.0.1:10086
 HTTPS_PROXY=http://127.0.0.1:10086
 NO_PROXY=localhost,127.0.0.1
 ```
+
+/var/snap/docker/[version]/config/daemon.json
+```
+{
+    "dns": [
+        "223.5.5.5",
+        "8.8.8.8"
+    ],
+    "proxies": {
+        "http-proxy": "http://127.0.0.1:10086",
+        "https-proxy": "http://127.0.0.1:10086",
+        "no-proxy": "127.0.0.0/8,192.168.1.1/24"
+    }
+}
 
 Run the following command to make the parameters take effect
 ```
@@ -76,8 +109,7 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
 ## For docker run / container
 
 ~/.docker/config.json
-···
-
+```
 {
    "proxies": {
        "default": {
@@ -87,5 +119,4 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
        }
    }
 }
-
-···
+```

@@ -18,7 +18,7 @@ There are three levels that need to be set, which we explain one by one blow
 
 ## For docker pull
 
-The network environment here is set up by dockerd, so we need to set dockerd proxy paramters
+The network environment here is set up by dockerd, so we need to set dockerd proxy paramters, or set daemon.json
 
 This is general set:
 
@@ -35,6 +35,24 @@ Environment='HTTPS_PROXY=http://proxy.example.com:8080/'
 Environment='NO_PROXY=localhost,127.0.0.1,.example.com'
 ```
 
+or
+
+/etc/docker/daemon.json
+```
+{
+    'dns': [
+        '223.5.5.5',
+        '8.8.8.8'
+    ],
+    'proxies': {
+        'http-proxy': 'http://127.0.0.1:10086',
+        'https-proxy': 'http://127.0.0.1:10086',
+        'no-proxy': '127.0.0.0/8,192.168.1.1/24'
+    }
+}
+```
+
+
 This is snap version:
 
 /etc/systemd/system/snap.docker.dockerd.service
@@ -46,6 +64,7 @@ Environment='HTTPS_PROXY=http://127.0.0.1:10086'
 Environment='NO_PROXY=localhost,127.0.0.1'
 ...
 ```
+or 
 
 /etc/environment
 ```
@@ -53,6 +72,20 @@ HTTP_PROXY=http://127.0.0.1:10086
 HTTPS_PROXY=http://127.0.0.1:10086
 NO_PROXY=localhost,127.0.0.1
 ```
+
+/var/snap/docker/[version]/config/daemon.json
+```
+{
+    'dns': [
+        '223.5.5.5',
+        '8.8.8.8'
+    ],
+    'proxies': {
+        'http-proxy': 'http://127.0.0.1:10086',
+        'https-proxy': 'http://127.0.0.1:10086',
+        'no-proxy': '127.0.0.0/8,192.168.1.1/24'
+    }
+}
 
 Run the following command to make the parameters take effect
 ```
@@ -88,8 +121,7 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
 ## For docker run / container
 
 ~/.docker/config.json
-···
-
+```
 {
    'proxies': {
        'default': {
@@ -99,8 +131,7 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
        }
    }
 }
-
-···
+```
 。">
 <meta property="og:title" content="Docker Proxies">
 <meta property="og:description" content="# Docker Proxy settings
@@ -111,7 +142,7 @@ There are three levels that need to be set, which we explain one by one blow
 
 ## For docker pull
 
-The network environment here is set up by dockerd, so we need to set dockerd proxy paramters
+The network environment here is set up by dockerd, so we need to set dockerd proxy paramters, or set daemon.json
 
 This is general set:
 
@@ -128,6 +159,24 @@ Environment='HTTPS_PROXY=http://proxy.example.com:8080/'
 Environment='NO_PROXY=localhost,127.0.0.1,.example.com'
 ```
 
+or
+
+/etc/docker/daemon.json
+```
+{
+    'dns': [
+        '223.5.5.5',
+        '8.8.8.8'
+    ],
+    'proxies': {
+        'http-proxy': 'http://127.0.0.1:10086',
+        'https-proxy': 'http://127.0.0.1:10086',
+        'no-proxy': '127.0.0.0/8,192.168.1.1/24'
+    }
+}
+```
+
+
 This is snap version:
 
 /etc/systemd/system/snap.docker.dockerd.service
@@ -139,6 +188,7 @@ Environment='HTTPS_PROXY=http://127.0.0.1:10086'
 Environment='NO_PROXY=localhost,127.0.0.1'
 ...
 ```
+or 
 
 /etc/environment
 ```
@@ -146,6 +196,20 @@ HTTP_PROXY=http://127.0.0.1:10086
 HTTPS_PROXY=http://127.0.0.1:10086
 NO_PROXY=localhost,127.0.0.1
 ```
+
+/var/snap/docker/[version]/config/daemon.json
+```
+{
+    'dns': [
+        '223.5.5.5',
+        '8.8.8.8'
+    ],
+    'proxies': {
+        'http-proxy': 'http://127.0.0.1:10086',
+        'https-proxy': 'http://127.0.0.1:10086',
+        'no-proxy': '127.0.0.0/8,192.168.1.1/24'
+    }
+}
 
 Run the following command to make the parameters take effect
 ```
@@ -181,8 +245,7 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
 ## For docker run / container
 
 ~/.docker/config.json
-···
-
+```
 {
    'proxies': {
        'default': {
@@ -192,8 +255,7 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
        }
    }
 }
-
-···
+```
 。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ideveloper-eu-org.github.io/ideveloper.github.io/post/Docker%20Proxies.html">
@@ -269,7 +331,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>For some reason, there are always network issues when accessing docker hub.</p>
 <p>There are three levels that need to be set, which we explain one by one blow</p>
 <h2>For docker pull</h2>
-<p>The network environment here is set up by dockerd, so we need to set dockerd proxy paramters</p>
+<p>The network environment here is set up by dockerd, so we need to set dockerd proxy paramters, or set daemon.json</p>
 <p>This is general set:</p>
 <pre class="notranslate"><code class="notranslate">sudo mkdir -p /etc/systemd/system/docker.service.d
 sudo touch /etc/systemd/system/docker.service.d/proxy.conf
@@ -280,6 +342,20 @@ Environment="HTTP_PROXY=http://proxy.example.com:8080/"
 Environment="HTTPS_PROXY=http://proxy.example.com:8080/"
 Environment="NO_PROXY=localhost,127.0.0.1,.example.com"
 </code></pre>
+<p>or</p>
+<p>/etc/docker/daemon.json</p>
+<pre class="notranslate"><code class="notranslate">{
+    "dns": [
+        "223.5.5.5",
+        "8.8.8.8"
+    ],
+    "proxies": {
+        "http-proxy": "http://127.0.0.1:10086",
+        "https-proxy": "http://127.0.0.1:10086",
+        "no-proxy": "127.0.0.0/8,192.168.1.1/24"
+    }
+}
+</code></pre>
 <p>This is snap version:</p>
 <p>/etc/systemd/system/snap.docker.dockerd.service</p>
 <pre class="notranslate"><code class="notranslate">...
@@ -289,34 +365,55 @@ Environment="HTTPS_PROXY=http://127.0.0.1:10086"
 Environment="NO_PROXY=localhost,127.0.0.1"
 ...
 </code></pre>
+<p>or</p>
 <p>/etc/environment</p>
 <pre class="notranslate"><code class="notranslate">HTTP_PROXY=http://127.0.0.1:10086
 HTTPS_PROXY=http://127.0.0.1:10086
 NO_PROXY=localhost,127.0.0.1
 </code></pre>
-<p>Run the following command to make the parameters take effect</p>
-<pre class="notranslate"><code class="notranslate">sudo systemctl daemon-reload
-// general
-sudo systemctl restart docker
-// snap
-sudo snap restart docker
+<p>/var/snap/docker/[version]/config/daemon.json</p>
+<pre class="notranslate"><code class="notranslate">{
+    "dns": [
+        "223.5.5.5",
+        "8.8.8.8"
+    ],
+    "proxies": {
+        "http-proxy": "http://127.0.0.1:10086",
+        "https-proxy": "http://127.0.0.1:10086",
+        "no-proxy": "127.0.0.0/8,192.168.1.1/24"
+    }
+}
+
+Run the following command to make the parameters take effect
 </code></pre>
-<p>Run the following command to check</p>
-<pre class="notranslate"><code class="notranslate">sudo systemctl show --property=Environment snap.docker.dockerd.service
-</code></pre>
-<p>BWT: You can also configure dockerd's proxy by configuring daemon.json</p>
-<h2>For docker build</h2>
-<p>Since the agents of build and docker pull are isolated from each other, we need to specify the agent when we build the image, which can only be specified in the command at present</p>
+<p>sudo systemctl daemon-reload<br>
+// general<br>
+sudo systemctl restart docker<br>
+// snap<br>
+sudo snap restart docker</p>
 <pre class="notranslate"><code class="notranslate">
-docker build --network host --build-arg "HTTP_PROXY=http://127.0.0.1:10086/" \
-    --build-arg "HTTPS_PROXY=http://127.0.0.1:10086/" \
-    --build-arg "NO_PROXY=localhost,127.0.0.1" -t agent -f ./docker/Dockerfile .
+Run the following command to check
+</code></pre>
+<p>sudo systemctl show --property=Environment snap.docker.dockerd.service</p>
+<pre class="notranslate"><code class="notranslate">
+BWT: You can also configure dockerd's proxy by configuring daemon.json
+
+## For docker build
+
+Since the agents of build and docker pull are isolated from each other, we need to specify the agent when we build the image, which can only be specified in the command at present
 
 </code></pre>
-<p>The host network is used here to ensure that 127.0.0.1 points to the local machine</p>
-<h2>For docker run / container</h2>
-<p>~/.docker/config.json<br>
-···</p>
+<p>docker build --network host --build-arg "HTTP_PROXY=<a href="http://127.0.0.1:10086/" rel="nofollow">http://127.0.0.1:10086/</a>" <br>
+--build-arg "HTTPS_PROXY=<a href="http://127.0.0.1:10086/" rel="nofollow">http://127.0.0.1:10086/</a>" <br>
+--build-arg "NO_PROXY=localhost,127.0.0.1" -t agent -f ./docker/Dockerfile .</p>
+<pre class="notranslate"><code class="notranslate">
+The host network is used here to ensure that 127.0.0.1 points to the local machine
+
+
+## For docker run / container
+
+~/.docker/config.json
+</code></pre>
 <p>{<br>
 "proxies": {<br>
 "default": {<br>
@@ -326,7 +423,7 @@ docker build --network host --build-arg "HTTP_PROXY=http://127.0.0.1:10086/" \
 }<br>
 }<br>
 }</p>
-<p>···</p></div>
+<pre class="notranslate"><code class="notranslate"></code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
