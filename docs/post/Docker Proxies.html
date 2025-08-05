@@ -86,8 +86,10 @@ NO_PROXY=localhost,127.0.0.1
         'no-proxy': '127.0.0.0/8,192.168.1.1/24'
     }
 }
+```
 
 Run the following command to make the parameters take effect
+
 ```
 sudo systemctl daemon-reload
 // general
@@ -108,11 +110,9 @@ BWT: You can also configure dockerd's proxy by configuring daemon.json
 Since the agents of build and docker pull are isolated from each other, we need to specify the agent when we build the image, which can only be specified in the command at present
 
 ```
-
 docker build --network host --build-arg 'HTTP_PROXY=http://127.0.0.1:10086/' \
     --build-arg 'HTTPS_PROXY=http://127.0.0.1:10086/' \
     --build-arg 'NO_PROXY=localhost,127.0.0.1' -t agent -f ./docker/Dockerfile .
-
 ```
 
 The host network is used here to ensure that 127.0.0.1 points to the local machine
@@ -121,15 +121,17 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
 ## For docker run / container
 
 ~/.docker/config.json
+
+
 ```
 {
-   'proxies': {
-       'default': {
-           'httpProxy': 'http://127.0.0.1:10086',
-           'httpsProxy': 'http://127.0.0.1:10086',
-           'noProxy': 'localhost,127.0.0.1'
-       }
-   }
+    'proxies': {
+        'default': {
+            'httpProxy': 'http://127.0.0.1:10086',
+            'httpsProxy': 'http://127.0.0.1:10086',
+            'noProxy': 'localhost,127.0.0.1'
+        }
+    }
 }
 ```
 。">
@@ -210,8 +212,10 @@ NO_PROXY=localhost,127.0.0.1
         'no-proxy': '127.0.0.0/8,192.168.1.1/24'
     }
 }
+```
 
 Run the following command to make the parameters take effect
+
 ```
 sudo systemctl daemon-reload
 // general
@@ -232,11 +236,9 @@ BWT: You can also configure dockerd's proxy by configuring daemon.json
 Since the agents of build and docker pull are isolated from each other, we need to specify the agent when we build the image, which can only be specified in the command at present
 
 ```
-
 docker build --network host --build-arg 'HTTP_PROXY=http://127.0.0.1:10086/' \
     --build-arg 'HTTPS_PROXY=http://127.0.0.1:10086/' \
     --build-arg 'NO_PROXY=localhost,127.0.0.1' -t agent -f ./docker/Dockerfile .
-
 ```
 
 The host network is used here to ensure that 127.0.0.1 points to the local machine
@@ -245,15 +247,17 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
 ## For docker run / container
 
 ~/.docker/config.json
+
+
 ```
 {
-   'proxies': {
-       'default': {
-           'httpProxy': 'http://127.0.0.1:10086',
-           'httpsProxy': 'http://127.0.0.1:10086',
-           'noProxy': 'localhost,127.0.0.1'
-       }
-   }
+    'proxies': {
+        'default': {
+            'httpProxy': 'http://127.0.0.1:10086',
+            'httpsProxy': 'http://127.0.0.1:10086',
+            'noProxy': 'localhost,127.0.0.1'
+        }
+    }
 }
 ```
 。">
@@ -383,47 +387,37 @@ NO_PROXY=localhost,127.0.0.1
         "no-proxy": "127.0.0.0/8,192.168.1.1/24"
     }
 }
-
-Run the following command to make the parameters take effect
 </code></pre>
-<p>sudo systemctl daemon-reload<br>
-// general<br>
-sudo systemctl restart docker<br>
-// snap<br>
-sudo snap restart docker</p>
-<pre class="notranslate"><code class="notranslate">
-Run the following command to check
+<p>Run the following command to make the parameters take effect</p>
+<pre class="notranslate"><code class="notranslate">sudo systemctl daemon-reload
+// general
+sudo systemctl restart docker
+// snap
+sudo snap restart docker
 </code></pre>
-<p>sudo systemctl show --property=Environment snap.docker.dockerd.service</p>
-<pre class="notranslate"><code class="notranslate">
-BWT: You can also configure dockerd's proxy by configuring daemon.json
-
-## For docker build
-
-Since the agents of build and docker pull are isolated from each other, we need to specify the agent when we build the image, which can only be specified in the command at present
-
+<p>Run the following command to check</p>
+<pre class="notranslate"><code class="notranslate">sudo systemctl show --property=Environment snap.docker.dockerd.service
 </code></pre>
-<p>docker build --network host --build-arg "HTTP_PROXY=<a href="http://127.0.0.1:10086/" rel="nofollow">http://127.0.0.1:10086/</a>" <br>
---build-arg "HTTPS_PROXY=<a href="http://127.0.0.1:10086/" rel="nofollow">http://127.0.0.1:10086/</a>" <br>
---build-arg "NO_PROXY=localhost,127.0.0.1" -t agent -f ./docker/Dockerfile .</p>
-<pre class="notranslate"><code class="notranslate">
-The host network is used here to ensure that 127.0.0.1 points to the local machine
-
-
-## For docker run / container
-
-~/.docker/config.json
+<p>BWT: You can also configure dockerd's proxy by configuring daemon.json</p>
+<h2>For docker build</h2>
+<p>Since the agents of build and docker pull are isolated from each other, we need to specify the agent when we build the image, which can only be specified in the command at present</p>
+<pre class="notranslate"><code class="notranslate">docker build --network host --build-arg "HTTP_PROXY=http://127.0.0.1:10086/" \
+    --build-arg "HTTPS_PROXY=http://127.0.0.1:10086/" \
+    --build-arg "NO_PROXY=localhost,127.0.0.1" -t agent -f ./docker/Dockerfile .
 </code></pre>
-<p>{<br>
-"proxies": {<br>
-"default": {<br>
-"httpProxy": "<a href="http://127.0.0.1:10086" rel="nofollow">http://127.0.0.1:10086</a>",<br>
-"httpsProxy": "<a href="http://127.0.0.1:10086" rel="nofollow">http://127.0.0.1:10086</a>",<br>
-"noProxy": "localhost,127.0.0.1"<br>
-}<br>
-}<br>
-}</p>
-<pre class="notranslate"><code class="notranslate"></code></pre></div>
+<p>The host network is used here to ensure that 127.0.0.1 points to the local machine</p>
+<h2>For docker run / container</h2>
+<p>~/.docker/config.json</p>
+<pre class="notranslate"><code class="notranslate">{
+    "proxies": {
+        "default": {
+            "httpProxy": "http://127.0.0.1:10086",
+            "httpsProxy": "http://127.0.0.1:10086",
+            "noProxy": "localhost,127.0.0.1"
+        }
+    }
+}
+</code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

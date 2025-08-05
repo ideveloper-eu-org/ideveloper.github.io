@@ -74,8 +74,10 @@ NO_PROXY=localhost,127.0.0.1
         "no-proxy": "127.0.0.0/8,192.168.1.1/24"
     }
 }
+```
 
 Run the following command to make the parameters take effect
+
 ```
 sudo systemctl daemon-reload
 // general
@@ -96,11 +98,9 @@ BWT: You can also configure dockerd's proxy by configuring daemon.json
 Since the agents of build and docker pull are isolated from each other, we need to specify the agent when we build the image, which can only be specified in the command at present
 
 ```
-
 docker build --network host --build-arg "HTTP_PROXY=http://127.0.0.1:10086/" \
     --build-arg "HTTPS_PROXY=http://127.0.0.1:10086/" \
     --build-arg "NO_PROXY=localhost,127.0.0.1" -t agent -f ./docker/Dockerfile .
-
 ```
 
 The host network is used here to ensure that 127.0.0.1 points to the local machine
@@ -109,14 +109,16 @@ The host network is used here to ensure that 127.0.0.1 points to the local machi
 ## For docker run / container
 
 ~/.docker/config.json
+
+
 ```
 {
-   "proxies": {
-       "default": {
-           "httpProxy": "http://127.0.0.1:10086",
-           "httpsProxy": "http://127.0.0.1:10086",
-           "noProxy": "localhost,127.0.0.1"
-       }
-   }
+    "proxies": {
+        "default": {
+            "httpProxy": "http://127.0.0.1:10086",
+            "httpsProxy": "http://127.0.0.1:10086",
+            "noProxy": "localhost,127.0.0.1"
+        }
+    }
 }
 ```
